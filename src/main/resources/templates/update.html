@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/kb.css}">
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+    <title>Update Knowledge Base</title>
+</head>
+<body>
+
+<!-- Menu Navigation Bar -->
+<header th:insert="header.html :: header"> </header>
+<!-- Body section -->
+<div class="container" style="margin-top:65px">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3>Update a Knowledge or Issue</h3></div>
+        <div class="panel-body">
+            <div class="col-md-8 mx-auto" th:if="${updateKb != null}">
+
+                <form th:action="@{/update-kb}" th:object="${updateKb}" method="post" class="form-horizontal">
+                    <input type="hidden" th:value="${updateKb.knowledgeId}" th:field="*{knowledgeId}">
+
+                    <div class="form-group form-group-lg">
+                        <label class="control-label">Title</label>
+                        <div class="col-sm-14">
+                            <input type="text" class="form-control" th:field="*{title}" th:value="${updateKb.title}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <label class="control-label">Splunk Query</label>
+                        <div class="col-sm-14">
+                            <input type="text" step="any" class="form-control" th:field="*{splunkQuery}"
+                                   th:value="${updateKb.splunkQuery}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <label class="control-label">Tag</label>
+                        <div class="col-sm-14">
+                            <input type="text" class="form-control" th:field="*{tag}" th:value="${updateKb.tag}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <label class="control-label">Description</label>
+                        <div class="col-sm-14">
+                            <textarea class="form-control" th:field="*{description}" rows="7"
+                                      th:value="${updateKb.description}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Update Knowledge</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

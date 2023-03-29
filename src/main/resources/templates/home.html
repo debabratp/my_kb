@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/kb.css}">
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+           $.ajax({
+            type: "GET",
+            dataType: "int",
+            url: "http://localhost:6789/get-count",
+            success: function(data){
+                alert(data);
+            }
+           });
+        });
+
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:6789/get-count"
+            }).then(function(data) {
+                $('.count').append(data.id);
+            });
+        });
+    </script>
+
+    <title>Knowledge Base</title>
+</head>
+
+<body>
+<!-- Header Section -->
+<header th:insert="header.html :: header"> </header>
+<!-- Body section -->
+<div class="container" style="margin-top:65px">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Top Searches</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <p align="right"><I><font size="2em" color="red">(The total number of knowledge are <span th:text="${count}"></span>)</font></I></p>
+                </div>
+                <ul class="list-group" th:each="knowledgeBase : ${results}">
+                    <li class="list-group-item"><a th:href="@{/kb/getKb/{id}(id=${knowledgeBase.knowledgeId})}">
+                        <h5 th:text="${knowledgeBase.title}"></h5>
+                    </a>
+                        <p><strong>Description:</strong> <span th:text="${#strings.substring(knowledgeBase.description,0, #strings.length(knowledgeBase.description)-10)}"></span>&nbsp;......</p>
+                    </li>
+                </ul>
+
+                <div class="col-md-9 mx-auto" th:if="${kb != null}">
+                    <p><B><font size="2em">Title:</font>&nbsp;</B><span th:text="${kb.title}"/></span></p>
+                    <p><B><font size="2em">Description:&nbsp;</font>&nbsp;</B><span th:utext="${kb.description}"/></span></p>
+<!--
+                    <p>Application Name:&nbsp;<span th:text="${kb.application}"/></span></p>
+-->
+                    <p>Splunk Query:&nbsp;<span th:text="${kb.splunkQuery} ?: '(no query)'"/></span></p>
+                    <!--<p>Type:&nbsp;<span th:text="${kb.type} ?: '(no type defined)'"/></span></p>-->
+                   <!-- <p>Reference:&nbsp;<span th:text="${kb.reference} ?: '(no references)'"/></span></p>-->
+                    <a href="/home">Back</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<html>
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/kb.css}">
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+    <title>Knowledge Base</title>
+</head>
+
+<body>
+<!-- Header Section -->
+<header th:insert="header.html :: header"> </header>
+<div>
+    <div class="row">
+        <div class="col-md-9 mx-auto">
+            <h2>Error....</h2>
+            <h3 th:text="'Snag!!! ' + ${error}" style="color: #ff2f00"></h3>
+        </div>
+        <a href="/home">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

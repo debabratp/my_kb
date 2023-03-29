@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  mongo_kb:
+    container_name: mongo_kb
+    image: mongo:latest
+    environment:
+      - MONGO_DATA_DIR=/data/db
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - "27000:27017"
+
+  payment_kb:
+    image: payment_kb:v1
+    ports:
+      - "8080:6789"
+    depends_on:
+      - mongo_kb
+    links:
+      - "mongo_kb"
+
+#networks:
+#  app-net:

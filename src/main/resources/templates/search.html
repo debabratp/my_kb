@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/kb.css}">
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+    <title>Search Knowledge Base</title>
+</head>
+
+<body>
+<!-- Header Section -->
+
+<!-- Menu Navigation Bar -->
+<header th:insert="header.html :: header"> </header>
+<!-- Body section -->
+<div class="container" style="margin-top:65px">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3>Search for Knowledge</h3>
+        </div>
+        <div class="panel-body">
+            <span class="container my-3" th:if="${errorSearch != null}">
+                <h4 th:text="'Snag!!! ' + ${errorSearch}" style="color: #ff2f00"></h4>
+            </span>
+            <form th:action="@{/search-result}" th:object="${knowledgeBase}" method="post" class="form-horizontal">
+                <div class="row">
+                    &nbsp;&nbsp;<div class="col-md-8 form-group form-group-lg">
+                        <input type="text" class="form-control" th:field="*{search}" required="required"
+                               placeholder="Searches are CASE sensitive">
+                    </div>
+                    <div class="col-md-2 form-group form-group-lg">
+                        <input class="form-control" placeholder="to include duplicate" th:field="*{filter}"
+                               type="checkbox"><font style="font-size:10px;color:red"><i>(To include duplicate)</i></font>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Search Result-->
+            <p></p>
+            <div class="col-md-9 mx-auto" th:if="${not #lists.isEmpty(knowledgeBaseList)}">
+                <ul class="list-group" th:each="value : ${knowledgeBaseList}">
+                    <li class="list-group-item">
+                        <form th:action="@{'/update-kb/' + ${value.knowledgeId}}" th:object="${value}" method="get">
+                            <!--<form th:action="@{/update-kb}" th:object="${value}" method="post">-->
+                            <strong>Title:</strong> <span th:text="${value.title}"></span>
+                            <input type="hidden" th:value="${value.knowledgeId}" th:field="*{knowledgeId}">
+                            <!--<p><strong>Type:</strong> <span th:text="${value.type}"></span></p>
+                            <p><strong>Application:</strong> <span th:text="${value.application}"></span></p>-->
+                            <p><strong>Description:</strong> <span th:utext="${value.description}"></span></p>
+                            <p><strong>Splunk Query:</strong> <span th:text="${value.splunkQuery}"></span></p>
+                            <!--<p><strong>Reference:</strong> <span th:text="${value.reference}"></span></p>-->
+                            <p><strong>Created On:</strong> <span th:text="${value.createOn}"></span></p>
+                            <button type="submit" class="btn btn-primary btn-default mt-3">Update</button>
+                        </form>
+
+                    </li>
+                </ul>
+            </div>
+            <!--<div class="col-sm-8" th:if="${#lists.isEmpty(knowledgeBaseList)}">&lt;!&ndash;th:unless="${#lists.isEmpty(knowledgeBaseList)}"
+        th:if="${not #lists.isEmpty(knowledgeBaseList)}"&ndash;&gt;
+                <h4>Search return <b>no</b> result/s.&nbsp;Please adjust your <a th:href="@{/search-kb}"> search </a></h4>
+            </div>-->
+        </div>
+    </div>
+</div>
+</body>
+
+<html>
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/kb.css}">
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+    <title>Login</title>
+</head>
+
+<body>
+
+<!-- Menu Navigation Bar -->
+<header th:insert="header.html :: header"> </header>
+<!-- Body section -->
+<div class="container" style="margin-top:65px">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3>Create a Knowledge or Issue</h3></div>
+        <div class="panel-body">
+            <div class="col-md-8 mx-auto">
+
+                <form th:action="@{/login}" th:object="${loginVO}" method="post" class="form-horizontal">
+                    <ul th:if="${#fields.hasErrors('*')}">
+                        <li th:each="error : ${#fields.errors('*')}" th:text="${error}">error</li>
+                    </ul>
+
+                    <div class="form-group form-group-lg">
+                        <label class="control-label">User Name: </label>
+                        <div class="col-sm-14">
+                            <input type="email" class="form-control" th:field="*{email}" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <label class="control-label">Password: </label>
+                        <div class="col-sm-14">
+                            <input type="password" class="form-control" th:field="*{password}" required="required">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                        <!--<a class="btn btn-primary btn-block" href="/create-user">Create USer</a>-->
+                    </div>
+                </form>
+                <a th:href="@{/create-user}"> Create User </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<html>
+

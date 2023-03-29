@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8" />
+    <link th:href="@{/css/kb.css}" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="header">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <span class="navbar-brand" >Payment Knowledge Base</span>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/create-kb">Create</a></li>
+                    <li><a href="/search-kb">Search</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+</div>
+
+<footer th:fragment="footer">
+    <a th:href="@{/fragments}">Fragments Index</a> |
+    <a th:href="@{/markup}">Markup inclusion</a> |
+    <a th:href="@{/params}">Fragment params</a> |
+    <a th:href="@{/other}">Other</a>
+</footer>
+</body>
+</html>
+
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" >Payment Knowledge Base</span>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/create-kb">Create</a></li>
+                <li><a href="/search-kb">Search</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
