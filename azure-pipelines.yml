@@ -23,6 +23,17 @@ steps:
     #testResultsFiles: '**/TEST-*.xml'
     goals: 'clean package'
     isJacocoCoverageReportXML: false
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+- task: Docker@2
+  inputs:
+    command: 'login'
+    Dockerfile: '**/Dockerfile'
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
 
 # - script: |
 #     echo Add other tasks to build, test, and deploy your project.
